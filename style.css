@@ -29,3 +29,10 @@
     background-repeat: no-repeat;
 }
 
+.yellow{
+    background-image: url(/images/yellow.png);
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
