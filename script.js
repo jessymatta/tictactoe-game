@@ -5,7 +5,6 @@ let game_states = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 let player = 1;
 let score_player_1 = 0;
 let score_player_2 = 0;
-let gameOver = false;
 const results_display = document.getElementById('results');
 const player1_score = document.getElementById('player1');
 const player2_score = document.getElementById('player2');
@@ -43,10 +42,66 @@ tiles.forEach((tile, index) => {
                     }
                 }
             }
-
+            // Check winner
+            checkWinner();
 
         }
     });
 });
 
 
+// to check if there is a winner
+//to game_states matrix is populated with 1s or -1s throughout the game, so a winning states is when a row sums up to 3(player1 won) or -3 for player 2
+//so will be comparing row sums, column sums and diagonal sums to check for 3s or -3s
+function checkWinner() {
+    // Check rows and columns
+    for (let i = 0; i < 3; i++) {
+        let row_sum = game_states[i][0] + game_states[i][1] + game_states[i][2];
+        let column_sum = game_states[0][i] + game_states[1][i] + game_states[2][i];
+        if (row_sum == 3 || column_sum == 3) {
+            // Player 1 wins
+            score_player_1+=1;
+            endGame(1);
+            return
+        } else if (row_sum == -3 || column_sum == -3) {
+            // Player 2 wins
+            score_player_2+=1;
+            endGame(2);
+            return
+        }
+    }
+
+    // Check diagonals
+    let diagonal_1_sum = game_states[0][0] + game_states[1][1] + game_states[2][2];
+    let diagonal_2_sum = game_states[0][2] + game_states[1][1] + game_states[2][0];
+    if (diagonal_1_sum == 3 || diagonal_2_sum == 3) {
+        // Player 1 wins
+        score_player_1+=1;
+        endGame(1);
+        return
+    } else if (diagonal_1_sum == -3 || diagonal_2_sum == -3) {
+        // Player 2 wins
+        score_player_2+=1;
+        endGame(2);
+        return
+    }
+
+    // Check for a tie, no row has a 0 left in it and no one won at this stage
+    if (game_states[0].indexOf(0) == -1 &&
+        game_states[1].indexOf(0) == -1 &&
+        game_states[2].indexOf(0) == -1) {
+        endGame(0);
+        return
+    }
+}
+
+// Function to end the game and display the result
+function endGame(winner) {
+
+    // Check if game ended in a tie
+    if (winner == 0) {
+        results_display.innerText = "It's a tie"
+    } else {
+        results_display.innerText = `Player ${winner} won`
+    }
+}
