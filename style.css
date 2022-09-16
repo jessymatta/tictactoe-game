@@ -13,5 +13,11 @@
     margin-top:200px;
     background-image: url("/images/board.png");
     background-size: cover;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
 }
 
+.game-container:hover{
+    cursor: pointer;
+}
