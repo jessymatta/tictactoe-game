@@ -36,3 +36,17 @@
     background-repeat: no-repeat;
 }
 
+.results,.scores{
+    border:3px solid red;
+    width:400px;
+    height:100px;
+    margin:0 auto;
+
+}
+
+.scores{
+display: flex;
+justify-content: flex-end;
+
+}
+
